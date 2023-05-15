@@ -26,7 +26,6 @@
 #include <numeric>
 #include <ranges>
 #include <unordered_map>
-#include <unordered_set>
 #include <utility>
 #include <vector>
 
@@ -131,10 +130,8 @@ main (int argc, char *argv[])
         auto found = last_reference.find (address);
         if (found != end (last_reference))
           {
-            auto set = std::unordered_set<unsigned long long>{};
             auto &[last_i, stack_it] = found->second;
-            for_each (stack_it, end (stack), [&] (auto a) { set.insert (a); });
-            forward_stack_distance[last_i] = set.size ();
+            forward_stack_distance[last_i] = distance (stack_it, end (stack));
             stack.splice (end (stack), stack, stack_it);
             last_i = i;
           }
