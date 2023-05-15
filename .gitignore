@@ -1,0 +1,6 @@
+*~
+.ccls-cache
+.gdb_history
+compile_commands.json
+*.d
+*.o
