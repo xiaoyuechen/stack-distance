@@ -21,7 +21,6 @@
 #include "trace-instruction.h"
 
 #include <algorithm>
-#include <array>
 #include <ranges>
 
 namespace sd
@@ -32,12 +31,9 @@ decode (const input_instr &ins, auto back_inserter)
 {
   using namespace std::ranges;
 
-  auto src = std::to_array (ins.source_memory);
-  auto dst = std::to_array (ins.destination_memory);
-  sort (src);
-  sort (dst);
-  set_union (src | views::filter (std::identity{}),
-             dst | views::filter (std::identity{}), back_inserter);
+  copy (ins.source_memory | views::filter (std::identity{}), back_inserter);
+  copy (ins.destination_memory | views::filter (std::identity{}),
+        back_inserter);
 }
 
 }
